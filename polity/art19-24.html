@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fundamental Rights: Articles 19–24 | MCQ Practice</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--text:#1f2933;--muted:#66727f;--line:#dde2e8;--accent:#2f5d8a;--green:#1e8449;--gbg:#e6f4ec;--red:#c0392b;--rbg:#fbeaea}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Georgia,"Times New Roman",serif}
+.wrap{max-width:860px;margin:0 auto;padding:16px}
+h1{font-size:1.5rem;margin:8px 0 2px}
+.sub{color:var(--muted);margin:0 0 14px;font-family:system-ui,sans-serif;font-size:.9rem}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:14px;font-family:system-ui,sans-serif}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;text-align:center}
+.stat b{display:block;font-size:1.3rem}.stat span{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.bar{height:8px;background:var(--line);border-radius:4px;margin-top:12px;overflow:hidden}
+.bar div{height:100%;width:0;background:var(--accent);transition:width .2s}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+button{font:inherit;font-family:system-ui,sans-serif;font-size:.85rem;padding:8px 12px;border:1px solid var(--line);background:#fff;color:var(--text);border-radius:6px;cursor:pointer}
+button:hover{border-color:var(--accent);color:var(--accent)}
+button:disabled{opacity:.45;cursor:not-allowed}
+button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.jump{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.jump button{width:38px;height:36px;padding:0}
+.jump .c{background:var(--gbg);border-color:var(--green);color:var(--green)}
+.jump .w{background:var(--rbg);border-color:var(--red);color:var(--red)}
+.q{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px;margin-bottom:14px;scroll-margin-top:10px}
+.qn{font-family:system-ui,sans-serif;font-size:.78rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.06em}
+.qt{margin:4px 0 6px}
+.st{margin:0 0 10px;padding-left:22px}.st li{margin-bottom:4px}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;margin-top:8px;border:1px solid var(--line);border-radius:8px;cursor:pointer;font-family:system-ui,sans-serif;font-size:.95rem}
+.opt:hover{background:#f1f4f8}
+.opt.locked{cursor:default}.opt.locked:hover{background:inherit}
+.opt input{margin-top:4px}
+.opt.correct{background:var(--gbg);border-color:var(--green)}
+.opt.wrong{background:var(--rbg);border-color:var(--red)}
+.opt.locked.correct:hover{background:var(--gbg)}.opt.locked.wrong:hover{background:var(--rbg)}
+.fb{margin-top:12px;padding:12px;border-radius:8px;font-family:system-ui,sans-serif;font-size:.92rem}
+.fb.ok{background:var(--gbg);border-left:4px solid var(--green)}
+.fb.no{background:var(--rbg);border-left:4px solid var(--red)}
+.fb.rev{background:#eef2f7;border-left:4px solid var(--accent)}
+.fb strong{display:block;margin-bottom:4px}
+.res h2{margin:0 0 8px;font-size:1.2rem}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.chips button{background:var(--rbg);border-color:var(--red);color:var(--red)}
+.hidden{display:none}
+@media(max-width:560px){.stats{grid-template-columns:repeat(3,1fr)}.q{padding:14px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Fundamental Rights: Articles 19–24</h1>
+  <p class="sub">UPSC Prelims MCQ Practice · Select an option to get instant feedback</p>
+
+  <div class="panel">
+    <div class="stats">
+      <div class="stat"><b id="sTotal">0</b><span>Total</span></div>
+      <div class="stat"><b id="sAtt">0</b><span>Attempted</span></div>
+      <div class="stat"><b id="sCor" style="color:var(--green)">0</b><span>Correct</span></div>
+      <div class="stat"><b id="sInc" style="color:var(--red)">0</b><span>Incorrect</span></div>
+      <div class="stat"><b id="sAcc">0%</b><span>Accuracy</span></div>
+    </div>
+    <div class="bar"><div id="bar"></div></div>
+  </div>
+
+  <div class="panel">
+    <div class="btns">
+      <button id="bShow">Show All Answers</button>
+      <button id="bHide">Hide All Answers</button>
+      <button id="bRetry" disabled>Retry Incorrect Questions</button>
+      <button id="bReview" disabled>Review Incorrect</button>
+      <button id="bAll" class="hidden">Show All Questions</button>
+      <button id="bReset">Reset Test</button>
+    </div>
+    <div style="margin-top:12px;font-size:.8rem;color:var(--muted)">Jump to question</div>
+    <div class="jump" id="jump"></div>
+  </div>
+
+  <div id="results" class="panel res hidden"></div>
+  <div id="list"></div>
+</div>
+
+<script>
+// ===== QUESTION BANK — replace this array for another topic =====
+// Fields: q (stem), s (optional statements), o (4 options), a (correct index 0-3 = A-D), e (explanation)
+const QUESTIONS = [
+{q:"Consider the following statements regarding Article 19:",
+ s:["The freedoms guaranteed under Article 19 are available to both citizens and foreigners.","Freedom of movement under Article 19 includes the right to move freely throughout the territory of India.","Freedom to reside and settle in any part of India may be restricted for protecting the interests of Scheduled Tribes.","Freedom of profession under Article 19 includes an unrestricted right to carry on any business."],
+ o:["1 and 2 only","2 and 3 only","1, 3 and 4 only","2, 3 and 4 only"],a:1,
+ e:"Article 19 freedoms are available only to citizens, not foreigners. Freedom of movement and residence can be restricted in the interests of the general public and for protecting Scheduled Tribes."},
+{q:"Which of the following is NOT a ground for imposing reasonable restrictions on freedom of speech and expression under Article 19(2)?",
+ o:["Public order","Defamation","General public interest","Sovereignty and integrity of India"],a:2,
+ e:"General public interest is a restriction ground under Article 19(5) and Article 19(6), concerning movement/residence and profession respectively. It is not a ground under Article 19(2) for freedom of speech."},
+{q:"Consider the following statements regarding Article 19:",
+ s:["Freedom of peaceful assembly is guaranteed without arms.","Freedom of association includes the right to form cooperative societies.","Freedom of movement and residence can be restricted only in the interests of the general public.","The State may prescribe professional qualifications for carrying on certain occupations."],
+ o:["1, 2 and 4 only","1 and 3 only","2, 3 and 4 only","1, 2, 3 and 4"],a:0,
+ e:"Statements 1, 2 and 4 are correct. Movement and residence may be restricted both in the interests of the general public and for protecting Scheduled Tribes, so Statement 3 is incorrect."},
+{q:"Consider the following statements regarding Article 20:",
+ s:["Protection against ex-post-facto criminal laws applies to both conviction and punishment.","Protection against double jeopardy requires that a person should not be prosecuted and punished for the same offence more than once.","Protection against self-incrimination is available only to citizens.","Article 20 protects a person against retrospective civil liability in the same manner as retrospective criminal liability."],
+ o:["1 and 2 only","1, 2 and 3 only","2 and 4 only","1, 2, 3 and 4"],a:0,
+ e:"Article 20 protections are available to all persons. It protects against retrospective criminal conviction or a greater retrospective penalty, double jeopardy and compelled self-incrimination. It does not provide equivalent protection against retrospective civil liability."},
+{q:"With reference to Article 20, consider the following:",
+ s:["A person cannot be convicted for an act which was not an offence when committed.","A person cannot be subjected to a penalty greater than that prescribed when the offence was committed.","A person cannot be prosecuted and punished for the same offence twice.","An accused person cannot be compelled to testify against himself."],
+ o:["1 and 2 only","1, 2 and 4 only","1, 2, 3 and 4","2, 3 and 4 only"],a:2,
+ e:"All four statements describe the three protections under Article 20: ex-post-facto criminal laws, double jeopardy and self-incrimination."},
+{q:"The Supreme Court's judgment in Maneka Gandhi v. Union of India (1978) is significant because:",
+ o:["It made Article 21 applicable exclusively to citizens.","It established that any procedure enacted by Parliament automatically satisfies Article 21.","It held that the procedure depriving a person of life or personal liberty must be just, fair and reasonable.","It removed the distinction between preventive detention and punitive detention."],a:2,
+ e:"Maneka Gandhi v. Union of India (1978) established that a procedure depriving a person of life or personal liberty must be just, fair and reasonable, strengthening Article 21."},
+{q:"Consider the following rights recognised by judicial interpretation under Article 21:",
+ s:["Right to privacy","Right to speedy trial","Right to livelihood","Right to legal aid"],
+ o:["1 and 2 only","2 and 3 only","1, 3 and 4 only","1, 2, 3 and 4"],a:3,
+ e:"The Supreme Court has interpreted Article 21 to include privacy, speedy trial, livelihood and legal aid, among several other rights."},
+{q:"With reference to Article 21A, consider the following statements:",
+ s:["It guarantees free and compulsory education to children between 6 and 14 years.","It was introduced by the 86th Constitutional Amendment Act.","It imposes an identical constitutional obligation on the State to provide free education to every child below 18 years.","The Right of Children to Free and Compulsory Education Act was enacted in 2009."],
+ o:["1 and 2 only","1, 2 and 4 only","2 and 3 only","1, 2, 3 and 4"],a:1,
+ e:"Article 21A was introduced by the 86th Amendment and covers free and compulsory education for children aged 6–14. The RTE Act was enacted in 2009. Article 21A does not extend its constitutional age range to 18."},
+{q:"Consider the following statements regarding Article 22:",
+ s:["An arrested person must be informed of the grounds of arrest.","An arrested person has the right to consult and be defended by a legal practitioner.","An arrested person must ordinarily be produced before a magistrate within 24 hours, excluding journey time.","These protections are equally applicable to enemy aliens and persons detained under preventive detention laws."],
+ o:["1 and 2 only","1, 2 and 3 only","2, 3 and 4 only","1, 2, 3 and 4"],a:1,
+ e:"Article 22(1) and 22(2) protections do not apply in the same manner to enemy aliens and persons detained under preventive detention laws. These are constitutional exceptions, so Statement 4 is incorrect."},
+{q:"With reference to preventive detention under the Constitution of India, consider the following statements:",
+ s:["Preventive detention aims at preventing possible future harmful activities rather than punishing a completed offence.","The Constitution generally permits preventive detention beyond three months without Advisory Board approval in all circumstances.","A preventive detainee must ordinarily be informed of the grounds of detention and afforded an opportunity to make a representation.","The authority may withhold facts considered against the public interest from disclosure."],
+ o:["1 and 3 only","1, 3 and 4 only","2 and 4 only","1, 2, 3 and 4"],a:1,
+ e:"Preventive detention is intended to prevent future harmful conduct. Grounds must ordinarily be communicated and representation allowed, but facts considered against public interest may be withheld. Detention beyond three months generally requires Advisory Board approval, subject to constitutional exceptions and applicable law."},
+{q:"Consider the following statements regarding Article 23:",
+ s:["It prohibits trafficking in human beings.","It prohibits begar and other forms of forced labour.","Its protection is available only against the State.","The State may impose compulsory public service, provided there is no discrimination on specified grounds."],
+ o:["1 and 2 only","1, 2 and 4 only","2 and 3 only","1, 2, 3 and 4"],a:1,
+ e:"Article 23 prohibits trafficking, begar and forced labour and applies against private individuals as well as the State. Compulsory public service is permitted without discrimination on religion, race, caste or class."},
+{q:"Which of the following best describes the constitutional meaning of Begar?",
+ o:["Voluntary labour performed without wages.","Compulsory public service imposed uniformly upon citizens.","Labour extracted from a person without payment and against their will.","Employment of children in hazardous occupations."],a:2,
+ e:"Begar is forced labour extracted without payment. Article 23 prohibits begar and other forms of forced labour."},
+{q:"Consider the following statements regarding Article 24:",
+ s:["It prohibits employment of children below 14 years in factories.","It prohibits employment of children below 14 years in mines.","It prohibits employment of children below 14 years in hazardous employment.","It expressly prohibits every conceivable form of employment of children below 14 years."],
+ o:["1 and 2 only","1, 2 and 3 only","2, 3 and 4 only","1, 2, 3 and 4"],a:1,
+ e:"Article 24 prohibits employment of children below 14 in factories, mines and hazardous employment. Its text does not expressly prohibit every conceivable form of employment; broader restrictions arise through legislation."},
+{q:"Which of the following Fundamental Rights are available against private individuals as well as the State?",
+ s:["Article 19","Article 21","Article 23","Article 24"],
+ o:["1 and 2 only","3 and 4 only","1, 3 and 4 only","2, 3 and 4 only"],a:1,
+ e:"Articles 23 and 24 are protections against exploitation that can operate against private individuals as well as the State. Article 19 is citizen-specific, while Article 21 protects persons against State deprivation of life or liberty."},
+{q:"Consider the following pairs (Constitutional Provision — Subject). How many of the pairs are correctly matched?",
+ s:["Article 19 — Six freedoms","Article 20 — Protection in respect of conviction for offences","Article 21A — Education for children aged 6–14 years","Article 22 — Protection against exploitation"],
+ o:["Only one","Only two","Only three","All four"],a:2,
+ e:"Pairs 1, 2 and 3 are correctly matched. Article 22 concerns protection against arrest and detention, not exploitation. Protection against exploitation is covered by Articles 23 and 24."}
+];
+// ===== END QUESTION BANK =====
+
+const L = ["A","B","C","D"];
+let answers, revealed, filtered;
+const $ = id => document.getElementById(id);
+
+function init(){
+  answers = QUESTIONS.map(()=>null);
+  revealed = QUESTIONS.map(()=>false);
+  filtered = false;
+  render();
+}
+function isWrong(i){ return answers[i]!==null && answers[i]!==QUESTIONS[i].a; }
+
+function render(){
+  const list = $("list"); let html = "";
+  QUESTIONS.forEach((Q,i)=>{
+    const sel = answers[i], done = sel!==null, rev = revealed[i] && !done;
+    if(filtered && !isWrong(i)) return;
+    html += `<div class="q" id="q${i}"><div class="qn">Question ${i+1} of ${QUESTIONS.length}</div><p class="qt">${Q.q}</p>`;
+    if(Q.s) html += `<ol class="st">${Q.s.map(t=>`<li>${t}</li>`).join("")}</ol>`;
+    Q.o.forEach((t,j)=>{
+      let c = "opt";
+      if(done||rev){
+        if(done) c += " locked";
+        if(j===Q.a) c += " correct";
+        else if(done && j===sel) c += " wrong";
+      }
+      html += `<label class="${c}"><input type="radio" name="q${i}" value="${j}" data-q="${i}" ${done?"disabled":""} ${sel===j?"checked":""}><span><b>${L[j]}.</b> ${t}</span></label>`;
+    });
+    if(done){
+      const ok = sel===Q.a;
+      html += `<div class="fb ${ok?"ok":"no"}"><strong>${ok?"✓ Correct!":"✗ Incorrect — correct answer: "+L[Q.a]}</strong>${Q.e}</div>`;
+    } else if(rev){
+      html += `<div class="fb rev"><strong>Answer: ${L[Q.a]}</strong>${Q.e}</div>`;
+    }
+    html += `</div>`;
+  });
+  if(!html) html = `<div class="panel">No incorrect questions to show.</div>`;
+  list.innerHTML = html;
+  updateStats(); updateJump(); updateResults();
+}
+
+function updateStats(){
+  const total = QUESTIONS.length;
+  const att = answers.filter(a=>a!==null).length;
+  const cor = answers.filter((a,i)=>a!==null && a===QUESTIONS[i].a).length;
+  const inc = att-cor;
+  $("sTotal").textContent = total; $("sAtt").textContent = att;
+  $("sCor").textContent = cor; $("sInc").textContent = inc;
+  $("sAcc").textContent = (att? Math.round(cor/att*100):0)+"%";
+  $("bar").style.width = (att/total*100)+"%";
+  $("bRetry").disabled = inc===0;
+  $("bReview").disabled = inc===0;
+  $("bAll").classList.toggle("hidden", !filtered);
+}
+
+function updateJump(){
+  $("jump").innerHTML = QUESTIONS.map((Q,i)=>{
+    const a = answers[i];
+    const c = a===null ? "" : (a===Q.a ? "c" : "w");
+    return `<button class="${c}" data-j="${i}" title="Question ${i+1}">${i+1}</button>`;
+  }).join("");
+}
+
+function updateResults(){
+  const box = $("results");
+  const att = answers.filter(a=>a!==null).length;
+  if(att!==QUESTIONS.length){ box.classList.add("hidden"); box.innerHTML=""; return; }
+  const wrong = QUESTIONS.map((_,i)=>i).filter(isWrong);
+  const cor = QUESTIONS.length - wrong.length;
+  const acc = Math.round(cor/QUESTIONS.length*100);
+  box.classList.remove("hidden");
+  box.innerHTML = `<h2>Test Complete</h2>
+    <div><b>Score:</b> ${cor} / ${QUESTIONS.length} &nbsp; <b>Accuracy:</b> ${acc}%</div>
+    <div style="margin-top:8px"><b>Incorrect questions:</b> ${wrong.length? wrong.map(i=>i+1).join(", ") : "None — perfect score!"}</div>
+    ${wrong.length? `<div class="chips">${wrong.map(i=>`<button data-j="${i}">Q${i+1}</button>`).join("")}</div>
+    <div class="btns"><button class="primary" id="rReview">Review Incorrect Questions</button><button id="rRetry">Retry Incorrect Questions</button></div>` : ""}
+    <div class="btns" style="margin-top:8px"><button id="rReset">Reset Test</button></div>`;
+}
+
+function goTo(i){
+  if(filtered && !isWrong(i)){ filtered=false; render(); }
+  const el = $("q"+i);
+  if(el) el.scrollIntoView({behavior:"auto",block:"start"});
+}
+
+function reviewIncorrect(){
+  if(!answers.some((a,i)=>isWrong(i))) return;
+  filtered = true; render(); window.scrollTo(0,0);
+}
+function retryIncorrect(){
+  QUESTIONS.forEach((_,i)=>{ if(isWrong(i)){ answers[i]=null; revealed[i]=false; } });
+  filtered = false; render();
+  const first = answers.findIndex(a=>a===null);
+  if(first>=0) goTo(first);
+}
+
+// Event handling
+document.addEventListener("change", e=>{
+  const t = e.target;
+  if(t.matches('input[type=radio][data-q]')){
+    const i = +t.dataset.q;
+    if(answers[i]!==null) return;      // locked
+    answers[i] = +t.value;
+    revealed[i] = false;
+    render();
+  }
+});
+document.addEventListener("click", e=>{
+  const b = e.target.closest("button"); if(!b) return;
+  if(b.dataset.j!==undefined) return goTo(+b.dataset.j);
+  switch(b.id){
+    case "bShow": revealed = revealed.map(()=>true); render(); break;
+    case "bHide": revealed = revealed.map(()=>false); render(); break;
+    case "bReset": case "rReset": window.scrollTo(0,0); init(); break;
+    case "bRetry": case "rRetry": retryIncorrect(); break;
+    case "bReview": case "rReview": reviewIncorrect(); break;
+    case "bAll": filtered=false; render(); break;
+  }
+});
+init();
+</script>
+</body>
+</html>
