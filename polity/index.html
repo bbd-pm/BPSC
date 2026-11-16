@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Polity | Revise2memorize</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f7fc;
+    color: #172554;
+}
+
+.container {
+    max-width: 1050px;
+    margin: auto;
+    padding: 25px;
+}
+
+/* ================= HERO ================= */
+
+.hero {
+    background: linear-gradient(135deg, #172554, #1e40af);
+    color: white;
+    padding: 42px 30px;
+    border-radius: 16px;
+    margin-bottom: 32px;
+}
+
+.eyebrow {
+    color: #bfdbfe;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.hero h1 {
+    font-size: clamp(32px, 5vw, 46px);
+    margin: 0 0 14px;
+}
+
+.hero p {
+    color: #dbeafe;
+    line-height: 1.8;
+    font-size: 16px;
+    max-width: 650px;
+    margin: 0;
+}
+
+.hero-tag {
+    display: inline-block;
+    margin-top: 22px;
+    padding: 9px 15px;
+    border: 1px solid #526ca9;
+    border-radius: 30px;
+    font-size: 13px;
+}
+
+/* ================= SECTION HEADING ================= */
+
+.section-title {
+    margin-bottom: 22px;
+}
+
+.section-title h2 {
+    font-size: 26px;
+    margin: 0 0 8px;
+}
+
+.section-title p {
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ================= SESSION LIST ================= */
+
+.sessions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.session {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 15px 18px;
+
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    box-shadow: 0 2px 6px rgba(15,23,42,0.03);
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.session:hover {
+    border-color: #93c5fd;
+    background: #f8fbff;
+}
+
+/* Session Number */
+
+.session-number {
+    flex-shrink: 0;
+
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #e0e7ff;
+    color: #3730a3;
+
+    border-radius: 9px;
+
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* Session Details */
+
+.session-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.session h3 {
+    font-size: 16px;
+    margin: 0 0 5px;
+    line-height: 1.4;
+    color: #172554;
+}
+
+.session .description {
+    font-size: 13px;
+    color: #64748b;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Open Button */
+
+.session-link {
+    flex-shrink: 0;
+
+    display: inline-block;
+    text-decoration: none;
+
+    background: #1d4ed8;
+    color: white;
+
+    padding: 9px 14px;
+    border-radius: 7px;
+
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.session-link:hover {
+    background: #1e40af;
+}
+
+/* ================= LEARNING APPROACH ================= */
+
+.learning {
+    margin-top: 32px;
+    padding: 25px;
+
+    border-radius: 14px;
+    background: #eaf0ff;
+}
+
+.learning h3 {
+    margin: 0 0 15px;
+    font-size: 20px;
+}
+
+.learning-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.learning-item {
+    background: rgba(255,255,255,0.75);
+    padding: 14px;
+    border-radius: 9px;
+}
+
+.learning-item strong {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.learning-item span {
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* ================= FOOTER ================= */
+
+.footer {
+    text-align: center;
+    padding: 28px 10px 10px;
+    color: #64748b;
+    font-size: 13px;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:600px) {
+
+    .container {
+        padding: 15px;
+    }
+
+    .hero {
+        padding: 32px 22px;
+    }
+
+    .hero p {
+        font-size: 14px;
+    }
+
+    .section-title h2 {
+        font-size: 23px;
+    }
+
+    .session {
+        padding: 12px;
+        gap: 10px;
+    }
+
+    .session-number {
+        width: 36px;
+        height: 36px;
+        font-size: 11px;
+    }
+
+    .session h3 {
+        font-size: 14px;
+    }
+
+    .session .description {
+        font-size: 12px;
+    }
+
+    .session-link {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .learning-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .learning {
+        padding: 18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero">
+
+        <div class="eyebrow">
+            REVISE2MEMORIZE / BPSC PRELIMS
+        </div>
+
+        <h1>Indian Polity</h1>
+
+        <p>
+            Learn the Constitution through focused sessions.
+            Understand important provisions, memorise key facts
+            and strengthen your preparation through MCQs.
+        </p>
+
+        <div class="hero-tag">
+            Learn · Revise · Practice · Remember
+        </div>
+
+    </section>
+
+
+    <!-- ================= SESSIONS ================= -->
+
+    <section>
+
+        <div class="section-title">
+            <h2>Polity Learning Sessions</h2>
+
+            <p>
+                Select a session to access its learning material
+                and revision resources.
+            </p>
+        </div>
+
+        <div class="sessions">
+
+            <!-- SESSION 01 -->
+
+            <article class="session">
+
+                <span class="session-number">01</span>
+
+                <div class="session-content">
+                    <h3>Fundamental Rights — Articles 12–18</h3>
+
+                    <p class="description">
+                        State, Equality and Constitutional Provisions
+                    </p>
+                </div>
+
+                <a class="session-link"
+                   href="https://sites.google.com/view/patternlabacademy/home/polity/session1-fr-12-18"
+                   target="_blank">
+                    Open →
+                </a>
+
+            </article>
+
+
+            <!-- SESSION 02 -->
+
+            <article class="session">
+
+                <span class="session-number">02</span>
+
+                <div class="session-content">
+                    <h3>Fundamental Rights — Articles 19–24</h3>
+
+                    <p class="description">
+                        Freedoms, Liberty, Education and Exploitation
+                    </p>
+                </div>
+
+                <a class="session-link"
+                   href="#"
+                   target="_top">
+                    Open →
+                </a>
+
+            </article>
+
+
+            <!-- SESSION 03 -->
+
+            <article class="session">
+
+                <span class="session-number">03</span>
+
+                <div class="session-content">
+                    <h3>Fundamental Rights — Articles 25–30</h3>
+
+                    <p class="description">
+                        Freedom of Religion and Cultural Rights
+                    </p>
+                </div>
+
+                <a class="session-link"
+                   href="#"
+                   target="_blank">
+                    Open →
+                </a>
+
+            </article>
+
+
+            <!-- SESSION 04 -->
+
+            <article class="session">
+
+                <span class="session-number">04</span>
+
+                <div class="session-content">
+                    <h3>Fundamental Rights — Articles 32–35</h3>
+
+                    <p class="description">
+                        Constitutional Remedies and Enforcement
+                    </p>
+                </div>
+
+                <a class="session-link"
+                   href="#"
+                   target="_top">
+                    Open →
+                </a>
+
+            </article>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= LEARNING APPROACH ================= -->
+
+    <section class="learning">
+
+        <h3>How to Learn Each Session</h3>
+
+        <div class="learning-grid">
+
+            <div class="learning-item">
+                <strong>📖 Learn</strong>
+                <span>Understand important concepts and provisions.</span>
+            </div>
+
+            <div class="learning-item">
+                <strong>🧠 Memorise</strong>
+                <span>Revise through question-answer format.</span>
+            </div>
+
+            <div class="learning-item">
+                <strong>🎯 Practice</strong>
+                <span>Solve MCQs and understand explanations.</span>
+            </div>
+
+            <div class="learning-item">
+                <strong>🔁 Revise</strong>
+                <span>Recall important facts before moving ahead.</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+        Revise2memorize · BPSC Prelims Preparation
+    </footer>
+
+</div>
+
+</body>
+</html>
