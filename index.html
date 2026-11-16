@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Revise2memorize | BPSC Preparation</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f7fb;
+    color: #172554;
+}
+
+/* Main Container */
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 25px;
+}
+
+/* Hero */
+.hero {
+    background: linear-gradient(135deg, #102b56, #1e4b87);
+    color: white;
+    padding: 55px 35px;
+    border-radius: 18px;
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.hero h1 {
+    font-size: clamp(30px, 5vw, 52px);
+    margin: 0 0 15px;
+    letter-spacing: -1px;
+}
+
+.hero p {
+    font-size: 18px;
+    line-height: 1.7;
+    color: #dbeafe;
+    max-width: 700px;
+    margin: auto;
+}
+
+.hero .tagline {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 10px 20px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 30px;
+    font-size: 14px;
+}
+
+/* Section Heading */
+.section-heading {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.section-heading h2 {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.section-heading p {
+    color: #64748b;
+    font-size: 15px;
+}
+
+/* Subject Grid */
+.subject-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+/* Subject Cards */
+.subject-card {
+    background: white;
+    border-radius: 15px;
+    padding: 28px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 5px 18px rgba(15, 23, 42, 0.04);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.subject-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 25px rgba(15, 23, 42, 0.09);
+}
+
+.subject-icon {
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 13px;
+    font-size: 27px;
+    margin-bottom: 20px;
+}
+
+.subject-card h3 {
+    font-size: 25px;
+    margin: 0 0 12px;
+    color: #172554;
+}
+
+.subject-card p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #64748b;
+    min-height: 50px;
+    margin-bottom: 22px;
+}
+
+.subject-card a {
+    display: inline-block;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 12px 18px;
+    border-radius: 8px;
+    color: white;
+}
+
+/* Subject Colors */
+.history .subject-icon {
+    background: #fff1db;
+}
+.history a {
+    background: #c65d16;
+}
+
+.geography .subject-icon {
+    background: #dcfce7;
+}
+.geography a {
+    background: #15803d;
+}
+
+.polity .subject-icon {
+    background: #ede9fe;
+}
+.polity a {
+    background: #6d28d9;
+}
+
+.science .subject-icon {
+    background: #dbeafe;
+}
+.science a {
+    background: #1d4ed8;
+}
+
+/* Learning Features */
+.features {
+    margin-top: 35px;
+    background: white;
+    padding: 28px;
+    border-radius: 15px;
+    border: 1px solid #e2e8f0;
+    text-align: center;
+}
+
+.features h3 {
+    margin-top: 0;
+    font-size: 21px;
+}
+
+.feature-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.feature-item {
+    background: #f1f5f9;
+    padding: 12px 18px;
+    border-radius: 8px;
+    color: #334155;
+    font-size: 14px;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 30px 10px 10px;
+    color: #64748b;
+    font-size: 13px;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+
+    .hero {
+        padding: 40px 20px;
+    }
+
+    .subject-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .subject-card {
+        padding: 24px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <h1>Revise2memorize</h1>
+
+        <p>
+            A focused learning platform for BPSC Prelims.
+            Learn concepts, memorise important facts,
+            revise efficiently and test your knowledge.
+        </p>
+
+        <div class="tagline">
+            LEARN &nbsp; • &nbsp; REVISE &nbsp; • &nbsp; PRACTICE &nbsp; • &nbsp; REMEMBER
+        </div>
+    </section>
+
+    <!-- SUBJECTS -->
+    <section>
+
+        <div class="section-heading">
+            <h2>Explore Subjects</h2>
+            <p>Select a subject to begin your preparation.</p>
+        </div>
+
+        <div class="subject-grid">
+
+            <!-- HISTORY -->
+            <div class="subject-card history">
+                <div class="subject-icon">🏛️</div>
+                <h3>History</h3>
+                <p>
+                    Ancient India, Medieval India and Modern India.
+                    Understand events, remember facts and master chronology.
+                </p>
+                <a href="https://sites.google.com/view/patternlabacademy/home/history" target="_blank">Explore History →</a>
+            </div>
+
+            <!-- GEOGRAPHY -->
+            <div class="subject-card geography">
+                <div class="subject-icon">🌍</div>
+                <h3>Geography</h3>
+                <p>
+                    Physical Geography, Indian Geography and World Geography.
+                    Learn locations, processes and geographical concepts.
+                </p>
+                <a href="https://sites.google.com/view/patternlabacademy/home/geography" target="_blank">Explore Geography →</a>
+            </div>
+
+            <!-- POLITY -->
+            <div class="subject-card polity">
+                <div class="subject-icon">⚖️</div>
+                <h3>Polity</h3>
+                <p>
+                    Constitution, Fundamental Rights, Parliament,
+                    governance and important constitutional provisions.
+                </p>
+                <a href="https://sites.google.com/view/patternlabacademy/home/polity" target="_blank">Explore Polity →</a>
+            </div>
+
+            <!-- SCIENCE -->
+            <div class="subject-card science">
+                <div class="subject-icon">🔬</div>
+                <h3>Science</h3>
+                <p>
+                    Physics, Chemistry and Biology.
+                    Focus on scientific concepts, everyday applications and facts.
+                </p>
+                <a href="#" target="_blank">Explore Science →</a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- LEARNING APPROACH -->
+    <section class="features">
+        <h3>Designed for Effective Revision</h3>
+
+        <div class="feature-list">
+            <div class="feature-item">📖 Concise Notes</div>
+            <div class="feature-item">🧠 Memorisation Q&A</div>
+            <div class="feature-item">🎯 Interactive MCQs</div>
+            <div class="feature-item">🔁 Quick Revision</div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        Revise2memorize · BPSC Prelims Preparation
+    </div>
+
+</div>
+
+</body>
+</html>
