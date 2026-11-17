@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jainism | UPSC Prelims MCQ Practice</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--text:#1f2933;--muted:#66727f;--line:#dde2e8;--accent:#2f5d8a;--green:#1e8449;--gbg:#e6f4ec;--red:#c0392b;--rbg:#fbeaea}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Georgia,"Times New Roman",serif}
+.wrap{max-width:860px;margin:0 auto;padding:16px}
+h1{font-size:1.5rem;margin:8px 0 2px}
+.sub{color:var(--muted);margin:0 0 14px;font-family:system-ui,sans-serif;font-size:.9rem}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:14px;font-family:system-ui,sans-serif}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;text-align:center}
+.stat b{display:block;font-size:1.3rem}.stat span{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.bar{height:8px;background:var(--line);border-radius:4px;margin-top:12px;overflow:hidden}
+.bar div{height:100%;width:0;background:var(--accent);transition:width .2s}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+button{font:inherit;font-family:system-ui,sans-serif;font-size:.85rem;padding:8px 12px;border:1px solid var(--line);background:#fff;color:var(--text);border-radius:6px;cursor:pointer}
+button:hover{border-color:var(--accent);color:var(--accent)}
+button:disabled{opacity:.45;cursor:not-allowed}
+button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.jump{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.jump button{width:38px;height:36px;padding:0}
+.jump .c{background:var(--gbg);border-color:var(--green);color:var(--green)}
+.jump .w{background:var(--rbg);border-color:var(--red);color:var(--red)}
+.q{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px;margin-bottom:14px;scroll-margin-top:10px}
+.qn{font-family:system-ui,sans-serif;font-size:.78rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.06em}
+.qn span{font-weight:400;color:var(--muted);text-transform:none;letter-spacing:0}
+.qt{margin:4px 0 6px}
+.st{margin:0 0 10px;padding-left:22px}.st li{margin-bottom:4px}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;margin-top:8px;border:1px solid var(--line);border-radius:8px;cursor:pointer;font-family:system-ui,sans-serif;font-size:.95rem}
+.opt:hover{background:#f1f4f8}
+.opt.locked{cursor:default}.opt.locked:hover{background:inherit}
+.opt input{margin-top:4px}
+.opt.correct{background:var(--gbg);border-color:var(--green)}
+.opt.wrong{background:var(--rbg);border-color:var(--red)}
+.opt.locked.correct:hover{background:var(--gbg)}.opt.locked.wrong:hover{background:var(--rbg)}
+.fb{margin-top:12px;padding:12px;border-radius:8px;font-family:system-ui,sans-serif;font-size:.92rem}
+.fb.ok{background:var(--gbg);border-left:4px solid var(--green)}
+.fb.no{background:var(--rbg);border-left:4px solid var(--red)}
+.fb.rev{background:#eef2f7;border-left:4px solid var(--accent)}
+.fb strong{display:block;margin-bottom:4px}
+.res h2{margin:0 0 8px;font-size:1.2rem}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.chips button{background:var(--rbg);border-color:var(--red);color:var(--red)}
+.hidden{display:none}
+@media(max-width:560px){.stats{grid-template-columns:repeat(3,1fr)}.q{padding:14px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Jainism</h1>
+  <p class="sub">UPSC Prelims MCQ Practice · Select an option to get instant feedback</p>
+
+  <div class="panel">
+    <div class="stats">
+      <div class="stat"><b id="sTotal">0</b><span>Total</span></div>
+      <div class="stat"><b id="sAtt">0</b><span>Attempted</span></div>
+      <div class="stat"><b id="sCor" style="color:var(--green)">0</b><span>Correct</span></div>
+      <div class="stat"><b id="sInc" style="color:var(--red)">0</b><span>Incorrect</span></div>
+      <div class="stat"><b id="sAcc">0%</b><span>Accuracy</span></div>
+    </div>
+    <div class="bar"><div id="bar"></div></div>
+  </div>
+
+  <div class="panel">
+    <div class="btns">
+      <button id="bShow">Show All Answers</button>
+      <button id="bHide">Hide All Answers</button>
+      <button id="bRetry" disabled>Retry Incorrect Questions</button>
+      <button id="bReview" disabled>Review Incorrect</button>
+      <button id="bAll" class="hidden">Show All Questions</button>
+      <button id="bReset">Reset Test</button>
+    </div>
+    <div style="margin-top:12px;font-size:.8rem;color:var(--muted)">Jump to question</div>
+    <div class="jump" id="jump"></div>
+  </div>
+
+  <div id="results" class="panel res hidden"></div>
+  <div id="list"></div>
+</div>
+
+<script>
+// ===== QUESTION BANK — replace this array for another topic =====
+// Fields: sec (index into SECTIONS), q (stem), s (optional statements/pairs), o (4 options), a (correct index 0-3 = A-D), e (explanation)
+const SECTIONS = [
+  "Section 1: Origin, Tirthankaras and Mahavira",
+  "Section 2: Doctrines, Philosophy and Ethics",
+  "Section 3: Sects, Councils and Literature",
+  "Section 4: Jainism in Bihar — Sites and Tirthankara Associations",
+  "Section 5: Jainism, Geography and Historical Connections"
+];
+const QUESTIONS = [
+// ---------- Section 1 ----------
+{sec:0,q:"Consider the following statements regarding Jainism:",
+ s:["Jain tradition recognises 24 Tirthankaras in the present time cycle.","Mahavira is regarded as the first Tirthankara of Jainism.","Rishabhanatha is regarded as the first Tirthankara.","Parshvanatha preceded Mahavira."],
+ o:["1 and 2 only","1, 3 and 4 only","2 and 3 only","1, 2, 3 and 4"],a:1,
+ e:"Jain tradition recognises 24 Tirthankaras. Rishabhanatha was the first, Parshvanatha the 23rd and Mahavira the 24th."},
+{sec:0,q:"With reference to the Tirthankaras, consider the following pairs (Tirthankara — Number):",
+ s:["Rishabhanatha — First","Neminatha — 22nd","Parshvanatha — 23rd","Mahavira — 24th"],
+ o:["1 and 2 only","2 and 3 only","1, 3 and 4 only","1, 2, 3 and 4"],a:3,
+ e:"All four Tirthankara-number associations are correct."},
+{sec:0,q:"Which one of the following best describes the meaning of the term Tirthankara in Jainism?",
+ o:["A monk who has renounced all worldly possessions","A spiritual teacher who establishes a path across the cycle of rebirth","A person who performs Vedic sacrifices","A ruler who protects Jain monasteries"],a:1,
+ e:"A Tirthankara establishes a path or ford across Samsara, the cycle of birth and death."},
+{sec:0,q:"Consider the following statements about Mahavira:",
+ s:["His original name was Vardhamana.","He belonged to the Jnatrika clan.","His father was Siddhartha and his mother was Trishala.","He was born in Lumbini."],
+ o:["1 and 2 only","1, 2 and 3 only","2, 3 and 4 only","1, 2, 3 and 4"],a:1,
+ e:"Mahavira was Vardhamana of the Jnatrika clan, son of Siddhartha and Trishala. His birthplace was in the Vaishali region, not Lumbini."},
+{sec:0,q:"Arrange the following events in the life of Mahavira in chronological order:",
+ s:["Attainment of Kevala Jnana","Renunciation of worldly life","Nirvana at Pavapuri","Birth at Kundagrama"],
+ o:["4–2–1–3","2–4–1–3","4–1–2–3","2–1–4–3"],a:0,
+ e:"Birth → renunciation → Kevala Jnana → Nirvana."},
+{sec:0,q:"With reference to Mahavira's spiritual journey, consider the following statements:",
+ s:["He renounced worldly life at around 30 years of age.","He attained Kevala Jnana after approximately 12 years of austerities.","He attained Nirvana at Rajagriha.","He is traditionally believed to have attained Nirvana at the age of 72."],
+ o:["1 and 2 only","1, 2 and 4 only","2, 3 and 4 only","1, 2, 3 and 4"],a:1,
+ e:"Mahavira renounced worldly life around 30, attained Kevala Jnana after 12 years of austerities and attained Nirvana at Pawapuri at the traditional age of 72."},
+{sec:0,q:"Which one of the following statements about Parshvanatha is correct?",
+ o:["He was the first Tirthankara of Jainism.","He was the 23rd Tirthankara and preceded Mahavira.","He introduced the concept of Triratna.","He was the contemporary of Ashoka."],a:1,
+ e:"Parshvanatha was the 23rd Tirthankara, preceding Mahavira."},
+{sec:0,q:"Jainism is often described as an ancient Indian religious tradition that was systematised and propagated by Mahavira. Which of the following statements supports the view that Mahavira was not its original founder?",
+ o:["Jainism rejected the idea of karma.","Jain tradition recognises 23 Tirthankaras before Mahavira.","Mahavira accepted the authority of the Vedas.","Jainism originated during the Mauryan period."],a:1,
+ e:"The 23 Tirthankaras before Mahavira show that Jainism's own tradition traces its lineage to earlier teachers."},
+
+// ---------- Section 2 ----------
+{sec:1,q:"With reference to the five Mahavratas of Jainism, consider the following pairs (Vow — Meaning):",
+ s:["Ahimsa — Non-violence","Satya — Truthfulness","Asteya — Non-stealing","Aparigraha — Non-possession","Brahmacharya — Celibacy/chastity"],
+ o:["1, 2 and 3 only","2, 3, 4 and 5 only","1, 2, 3, 4 and 5","1, 3 and 5 only"],a:2,
+ e:"All five vows and their meanings are correctly matched."},
+{sec:1,q:"Which one of the following is traditionally associated with Parshvanatha's teachings, before Mahavira added the fifth vow?",
+ o:["Ahimsa, Satya, Asteya and Aparigraha","Ahimsa, Satya, Brahmacharya and Aparigraha","Ahimsa, Asteya, Brahmacharya and Satya","Satya, Asteya, Aparigraha and Yajna"],a:0,
+ e:"Parshvanatha is traditionally associated with four vows; Mahavira added Brahmacharya as the fifth."},
+{sec:1,q:"The Jain concept of Triratna refers to:",
+ o:["Three forms of meditation","Right faith, right knowledge and right conduct","Three stages of monastic life","Three categories of karma"],a:1,
+ e:"Triratna means Samyak Darshana, Samyak Jnana and Samyak Charitra."},
+{sec:1,q:"Consider the following statements regarding Anekantavada:",
+ s:["It recognises that reality has multiple aspects.","It holds that a single viewpoint may not capture the complete nature of reality.","It means that all statements are equally true irrespective of context.","It is associated with intellectual non-absolutism."],
+ o:["1 and 2 only","1, 2 and 4 only","2, 3 and 4 only","1, 2, 3 and 4"],a:1,
+ e:"Anekantavada recognises multiple aspects of reality and rejects absolute one-sided viewpoints. It does not mean every claim is equally true."},
+{sec:1,q:"In Jain philosophy, Syadvada is most closely associated with:",
+ o:["The doctrine of momentariness","Conditional predication or qualified assertions","The rejection of the existence of the soul","The theory of divine creation"],a:1,
+ e:"Syadvada is the doctrine of conditional or qualified assertions, considering different standpoints."},
+{sec:1,q:"Consider the following statements about Jiva and Ajiva:",
+ s:["Jiva refers to the living soul or conscious substance.","Ajiva refers to non-living substances.","Jainism considers both Jiva and Ajiva as real categories.","Ajiva refers exclusively to sinful actions."],
+ o:["1 and 2 only","1, 2 and 3 only","2, 3 and 4 only","1, 2, 3 and 4"],a:1,
+ e:"Jiva is the conscious/living substance; Ajiva includes non-living substances."},
+{sec:1,q:"Which one of the following most accurately describes the Jain understanding of karma?",
+ o:["Karma is only a psychological impression with no metaphysical significance.","Karma is understood as subtle material bondage that attaches to the soul.","Karma is determined exclusively by divine will.","Karma has no connection with rebirth."],a:1,
+ e:"Jain philosophy treats karma as subtle material matter that binds to the soul."},
+{sec:1,q:"Consider the following statements about Jainism:",
+ s:["It accepts the existence of individual souls.","It accepts the doctrine of karma and rebirth.","It regards a creator God as necessary for the creation of the universe.","It considers liberation possible through the removal of karmic bondage."],
+ o:["1 and 2 only","1, 2 and 4 only","2, 3 and 4 only","1, 2, 3 and 4"],a:1,
+ e:"Jainism accepts individual souls, karma, rebirth and liberation through the removal of karmic bondage, but not a creator God."},
+{sec:1,q:"The Jain practice of Sallekhana is best described as:",
+ o:["A ritual sacrifice performed for the prosperity of the kingdom","A disciplined, gradual renunciation of food and bodily attachments at the end of life under prescribed conditions","A compulsory fast observed by every Jain once a year","A ceremony marking the initiation of a new Tirthankara"],a:1,
+ e:"Sallekhana is a disciplined end-of-life practice involving gradual fasting and detachment under prescribed conditions."},
+{sec:1,q:"Which one of the following statements best distinguishes Jainism from Buddhism in their classical philosophical positions?",
+ o:["Jainism accepts the existence of an enduring individual soul, whereas Buddhism rejects a permanent self.","Jainism rejects karma, whereas Buddhism accepts it.","Jainism accepts Vedic authority, whereas Buddhism rejects it.","Jainism believes in a creator God, whereas Buddhism does not."],a:0,
+ e:"Jainism accepts an enduring individual soul; classical Buddhism teaches Anatta/Anatman, the absence of a permanent self."},
+
+// ---------- Section 3 ----------
+{sec:2,q:"With reference to the Digambara and Svetambara sects, consider the following statements:",
+ s:["Digambara literally means sky-clad.","Svetambara monks traditionally wear white robes.","Digambara tradition traditionally holds that a woman cannot attain liberation in a female body.","Both sects accept the surviving Svetambara Agama canon as fully authoritative."],
+ o:["1 and 2 only","1, 2 and 3 only","2, 3 and 4 only","1, 2, 3 and 4"],a:1,
+ e:"Digambara means sky-clad; Svetambara means white-clad. The traditional Digambara position differs from Svetambara on women's ability to attain liberation."},
+{sec:2,q:"Which of the following is correctly associated with the traditional account of the first Jain council?",
+ o:["Valabhi — Sthulabhadra","Pataliputra — Sthulabhadra","Rajagriha — Mahakassapa","Kashmir — Vasumitra"],a:1,
+ e:"Pataliputra is traditionally associated with the early Jain council under Sthulabhadra."},
+{sec:2,q:"The later compilation of the Svetambara Jain scriptures is traditionally associated with which place?",
+ o:["Pataliputra","Vaishali","Valabhi","Ujjain"],a:2,
+ e:"Valabhi in Gujarat is associated with the later compilation of the Svetambara canon."},
+{sec:2,q:"Jain canonical literature is particularly associated with which of the following languages?",
+ o:["Ardhamagadhi Prakrit","Classical Sanskrit alone","Pali alone","Persian"],a:0,
+ e:"Ardhamagadhi Prakrit is particularly associated with the Svetambara canonical texts."},
+{sec:2,q:"The Kalpa Sutra is primarily associated with:",
+ o:["The biographies of Tirthankaras, especially Mahavira, and monastic traditions","The political history of the Mauryan Empire","The Buddhist doctrine of dependent origination","The rituals of Vedic sacrifices"],a:0,
+ e:"The Kalpa Sutra contains accounts of Tirthankaras, especially Mahavira, and monastic traditions."},
+{sec:2,q:"Consider the following statements about Jain councils:",
+ s:["Pataliputra is traditionally associated with an early Jain council.","Valabhi is associated with a later compilation of Jain scriptures.","The Jain councils and Buddhist councils had identical participants and objectives."],
+ o:["1 only","1 and 2 only","2 and 3 only","1, 2 and 3"],a:1,
+ e:"Pataliputra and Valabhi are associated with Jain scriptural traditions; Jain and Buddhist councils were not identical."},
+
+// ---------- Section 4 ----------
+{sec:3,q:"Consider the following pairs of Jain pilgrimage sites in Bihar and their associations (Site — Association):",
+ s:["Pawapuri — Mahavira's Nirvana","Champapuri — Vasupujya","Rajgir — Munisuvrata","Kundagrama — Mahavira's birth"],
+ o:["1 and 2 only","1, 2 and 3 only","1, 2, 3 and 4","2, 3 and 4 only"],a:2,
+ e:"Pawapuri–Mahavira, Champapuri–Vasupujya, Rajgir–Munisuvrata and Kundagrama–Mahavira are the relevant associations."},
+{sec:3,q:"Pawapuri, an important Jain pilgrimage centre in Bihar, is associated with which of the following?",
+ s:["Mahavira's Nirvana","Jal Mandir","A sacred tank associated with the cremation of Mahavira","Birth of the 12th Tirthankara"],
+ o:["1 and 2 only","1, 2 and 3 only","2, 3 and 4 only","1, 2, 3 and 4"],a:1,
+ e:"Pawapuri is associated with Mahavira's Nirvana, Jal Mandir and the sacred tank. Vasupujya's birthplace is Champapuri."},
+{sec:3,q:"Champapuri, located in the Bhagalpur region of Bihar, is associated with which Tirthankara?",
+ o:["Mahavira","Parshvanatha","Vasupujya","Munisuvrata"],a:2,
+ e:"Champapuri is associated with the 12th Tirthankara Vasupujya."},
+{sec:3,q:"Consider the following statements regarding Rajgir and Jainism:",
+ s:["Rajgir was known in ancient times as Rajagriha.","Munisuvrata, the 20th Tirthankara, is traditionally associated with Rajagriha as his birthplace.","Rajgir is associated with the Jain concept of Samavasaran.","Rajgir has no association with Buddhism."],
+ o:["1 and 2 only","1, 2 and 3 only","2, 3 and 4 only","1, 2, 3 and 4"],a:1,
+ e:"Rajgir was ancient Rajagriha, is traditionally associated with Munisuvrata and has Jain as well as Buddhist significance."},
+{sec:3,q:"Which one of the following is the correct association of the Jal Mandir?",
+ o:["Rajgir — Birthplace of Mahavira","Pawapuri — Mahavira's cremation and Nirvana site","Champapuri — First Jain council","Vaishali — Nirvana of Parshvanatha"],a:1,
+ e:"Jal Mandir at Pawapuri commemorates the site associated with Mahavira's cremation and Nirvana."},
+{sec:3,q:"With reference to Jain sites in Bihar, consider the following pairs (Site — District/region):",
+ s:["Pawapuri — Nalanda","Champapuri — Bhagalpur","Lachhuar — Jamui","Kamaldah Jain Temple — Patna"],
+ o:["1 and 2 only","1, 2 and 3 only","1, 2, 3 and 4","2, 3 and 4 only"],a:2,
+ e:"All four geographical associations are correct."},
+{sec:3,q:"Son Bhandar Caves, an important archaeological site associated with Jainism, are located at:",
+ o:["Vaishali","Rajgir","Pawapuri","Champapuri"],a:1,
+ e:"Son Bhandar Caves are located at Rajgir."},
+{sec:3,q:"Which of the following statements regarding Kundagrama/Kundalpur is most appropriate?",
+ o:["It is traditionally associated with Mahavira's birth.","It is the place where the first Jain council was held.","It is the Nirvana site of Parshvanatha.","It is associated with the 12th Tirthankara Vasupujya."],a:0,
+ e:"Kundagrama is traditionally associated with Mahavira's birthplace."},
+{sec:3,q:"Which of the following Tirthankaras are traditionally associated with birthplaces in the Bihar region?",
+ s:["Munisuvrata — Rajagriha","Naminatha — Mithila","Mahavira — Kundagrama","Parshvanatha — Varanasi"],
+ o:["1 and 2 only","1, 2 and 3 only","2, 3 and 4 only","1, 2, 3 and 4"],a:1,
+ e:"Munisuvrata–Rajagriha, Naminatha–Mithila and Mahavira–Kundagrama are the Bihar associations. Parshvanatha is traditionally associated with Varanasi."},
+{sec:3,q:"Which one of the following is associated with the 10th Tirthankara Sheetalanatha in certain Bihar-related Jain traditions?",
+ o:["Kuluha Hill","Pawapuri","Rajgir","Champapuri"],a:0,
+ e:"Kuluha Hill is cited in some Bihar-related Jain historical accounts as the birthplace association of Sheetalanatha. Other Jain references identify his birthplace as Bhaddilpur/Bhadilpur, so this is a tradition-dependent association."},
+{sec:3,q:"Consider the following pairs (Jain site — Significance):",
+ s:["Kamaldah, Patna — Jain temples and association with Sthulabhadra","Lachhuar, Jamui — Jain pilgrimage centre","Mandar Hill, Banka — Jain association, including Vasupujya traditions","Son Bhandar, Rajgir — Jain rock-cut caves"],
+ o:["1 and 2 only","1, 2 and 3 only","1, 2, 3 and 4","2, 3 and 4 only"],a:2,
+ e:"All four pairs are associated with Bihar's Jain heritage."},
+{sec:3,q:"Consider the following statements about Samavasaran in Jain tradition:",
+ s:["It refers to the divine preaching assembly of a Tirthankara after attaining Kevala Jnana.","It is associated with the religious tradition of Mahavira.","A site called Samwasaran is included in Bihar's Jain pilgrimage circuit."],
+ o:["1 only","1 and 2 only","2 and 3 only","1, 2 and 3"],a:3,
+ e:"Samavasaran is the preaching assembly of a Tirthankara after Kevala Jnana; a Samwasaran site is included in Bihar's Jain circuit."},
+
+// ---------- Section 5 ----------
+{sec:4,q:"Parasnath Hill, also known as Sammed Shikharji, is associated with Jainism because:",
+ o:["It is the birthplace of all 24 Tirthankaras.","It is traditionally believed to be the Nirvana site of 20 Tirthankaras.","Mahavira delivered his first sermon there.","It was the site of the first Jain council."],a:1,
+ e:"Sammed Shikharji is traditionally associated with the Nirvana of 20 Tirthankaras."},
+{sec:4,q:"With reference to Parasnath Hill, consider the following statements:",
+ s:["It is located in present-day Jharkhand.","It was part of undivided Bihar before the creation of Jharkhand in 2000.","It is an important pilgrimage centre for both Digambara and Svetambara Jains.","It is located in present-day Nalanda district."],
+ o:["1 and 2 only","1, 2 and 3 only","2, 3 and 4 only","1, 2, 3 and 4"],a:1,
+ e:"Parasnath Hill is in present-day Jharkhand, formerly part of undivided Bihar. It is an important pilgrimage centre for both major Jain sects."},
+{sec:4,q:"Which of the following rulers are associated with Jainism in historical or traditional accounts?",
+ s:["Chandragupta Maurya","Kharavela","Bimbisara","Samprati"],
+ o:["1 and 2 only","1, 2 and 3 only","1, 2, 3 and 4","2 and 4 only"],a:2,
+ e:"All four rulers are associated with Jainism in historical or traditional accounts, though the nature and strength of the evidence differ."},
+{sec:4,q:"Consider the following statements about Jainism in ancient India:",
+ s:["Jainism flourished in the eastern Gangetic region, including Magadha.","Jainism and Buddhism both challenged aspects of the ritual-centred religious practices of their time.","Jainism accepts the authority of the Vedas as its ultimate religious authority.","Jainism places strong emphasis on Ahimsa and ascetic discipline."],
+ o:["1 and 2 only","1, 2 and 4 only","2, 3 and 4 only","1, 2, 3 and 4"],a:1,
+ e:"Jainism flourished in eastern India, challenged ritual-centred religious practices and emphasised Ahimsa and asceticism. It does not accept Vedic authority as ultimate."}
+];
+// ===== END QUESTION BANK =====
+
+const L = ["A","B","C","D"];
+let answers, revealed, filtered;
+const $ = id => document.getElementById(id);
+
+function init(){
+  answers = QUESTIONS.map(()=>null);
+  revealed = QUESTIONS.map(()=>false);
+  filtered = false;
+  render();
+}
+function isWrong(i){ return answers[i]!==null && answers[i]!==QUESTIONS[i].a; }
+
+function render(){
+  const list = $("list"); let html = "";
+  QUESTIONS.forEach((Q,i)=>{
+    const sel = answers[i], done = sel!==null, rev = revealed[i] && !done;
+    if(filtered && !isWrong(i)) return;
+    const secName = (Q.sec!==undefined && SECTIONS[Q.sec]) ? ` <span>· ${SECTIONS[Q.sec]}</span>` : "";
+    html += `<div class="q" id="q${i}"><div class="qn">Question ${i+1} of ${QUESTIONS.length}${secName}</div><p class="qt">${Q.q}</p>`;
+    if(Q.s) html += `<ol class="st">${Q.s.map(t=>`<li>${t}</li>`).join("")}</ol>`;
+    Q.o.forEach((t,j)=>{
+      let c = "opt";
+      if(done||rev){
+        if(done) c += " locked";
+        if(j===Q.a) c += " correct";
+        else if(done && j===sel) c += " wrong";
+      }
+      html += `<label class="${c}"><input type="radio" name="q${i}" value="${j}" data-q="${i}" ${done?"disabled":""} ${sel===j?"checked":""}><span><b>${L[j]}.</b> ${t}</span></label>`;
+    });
+    if(done){
+      const ok = sel===Q.a;
+      html += `<div class="fb ${ok?"ok":"no"}"><strong>${ok?"✓ Correct!":"✗ Incorrect — correct answer: "+L[Q.a]}</strong>${Q.e}</div>`;
+    } else if(rev){
+      html += `<div class="fb rev"><strong>Answer: ${L[Q.a]}</strong>${Q.e}</div>`;
+    }
+    html += `</div>`;
+  });
+  if(!html) html = `<div class="panel">No incorrect questions to show.</div>`;
+  list.innerHTML = html;
+  updateStats(); updateJump(); updateResults();
+}
+
+function updateStats(){
+  const total = QUESTIONS.length;
+  const att = answers.filter(a=>a!==null).length;
+  const cor = answers.filter((a,i)=>a!==null && a===QUESTIONS[i].a).length;
+  const inc = att-cor;
+  $("sTotal").textContent = total; $("sAtt").textContent = att;
+  $("sCor").textContent = cor; $("sInc").textContent = inc;
+  $("sAcc").textContent = (att? Math.round(cor/att*100):0)+"%";
+  $("bar").style.width = (att/total*100)+"%";
+  $("bRetry").disabled = inc===0;
+  $("bReview").disabled = inc===0;
+  $("bAll").classList.toggle("hidden", !filtered);
+}
+
+function updateJump(){
+  $("jump").innerHTML = QUESTIONS.map((Q,i)=>{
+    const a = answers[i];
+    const c = a===null ? "" : (a===Q.a ? "c" : "w");
+    return `<button class="${c}" data-j="${i}" title="Question ${i+1}">${i+1}</button>`;
+  }).join("");
+}
+
+function updateResults(){
+  const box = $("results");
+  const att = answers.filter(a=>a!==null).length;
+  if(att!==QUESTIONS.length){ box.classList.add("hidden"); box.innerHTML=""; return; }
+  const wrong = QUESTIONS.map((_,i)=>i).filter(isWrong);
+  const cor = QUESTIONS.length - wrong.length;
+  const acc = Math.round(cor/QUESTIONS.length*100);
+  box.classList.remove("hidden");
+  box.innerHTML = `<h2>Test Complete</h2>
+    <div><b>Score:</b> ${cor} / ${QUESTIONS.length} &nbsp; <b>Accuracy:</b> ${acc}%</div>
+    <div style="margin-top:8px"><b>Incorrect questions:</b> ${wrong.length? wrong.map(i=>i+1).join(", ") : "None — perfect score!"}</div>
+    ${wrong.length? `<div class="chips">${wrong.map(i=>`<button data-j="${i}">Q${i+1}</button>`).join("")}</div>
+    <div class="btns"><button class="primary" id="rReview">Review Incorrect Questions</button><button id="rRetry">Retry Incorrect Questions</button></div>` : ""}
+    <div class="btns" style="margin-top:8px"><button id="rReset">Reset Test</button></div>`;
+}
+
+function goTo(i){
+  if(filtered && !isWrong(i)){ filtered=false; render(); }
+  const el = $("q"+i);
+  if(el) el.scrollIntoView({behavior:"auto",block:"start"});
+}
+
+function reviewIncorrect(){
+  if(!answers.some((a,i)=>isWrong(i))) return;
+  filtered = true; render(); window.scrollTo(0,0);
+}
+function retryIncorrect(){
+  QUESTIONS.forEach((_,i)=>{ if(isWrong(i)){ answers[i]=null; revealed[i]=false; } });
+  filtered = false; render();
+  const first = answers.findIndex(a=>a===null);
+  if(first>=0) goTo(first);
+}
+
+// Event handling
+document.addEventListener("change", e=>{
+  const t = e.target;
+  if(t.matches('input[type=radio][data-q]')){
+    const i = +t.dataset.q;
+    if(answers[i]!==null) return;      // locked
+    answers[i] = +t.value;
+    revealed[i] = false;
+    render();
+  }
+});
+document.addEventListener("click", e=>{
+  const b = e.target.closest("button"); if(!b) return;
+  if(b.dataset.j!==undefined) return goTo(+b.dataset.j);
+  switch(b.id){
+    case "bShow": revealed = revealed.map(()=>true); render(); break;
+    case "bHide": revealed = revealed.map(()=>false); render(); break;
+    case "bReset": case "rReset": window.scrollTo(0,0); init(); break;
+    case "bRetry": case "rRetry": retryIncorrect(); break;
+    case "bReview": case "rReview": reviewIncorrect(); break;
+    case "bAll": filtered=false; render(); break;
+  }
+});
+init();
+</script>
+</body>
+</html>
