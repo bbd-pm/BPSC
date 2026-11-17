@@ -1,0 +1,564 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>History | Revise2Memorize</title>
+
+<style>
+:root {
+  --bg: #f5f7fb;
+  --surface: #ffffff;
+  --text: #172033;
+  --muted: #697386;
+  --primary: #9b542d;
+  --primary-light: #f7eee8;
+  --border: #e7eaf0;
+  --green: #16845b;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Inter, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.container {
+  width: min(920px, 92%);
+  margin: auto;
+}
+
+/* NAVIGATION */
+
+nav {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--border);
+  background: white;
+}
+
+.nav-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.brand span {
+  color: var(--primary);
+}
+
+.back-link {
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* HERO */
+
+.hero {
+  margin: 28px 0 25px;
+  padding: 32px;
+  border-radius: 18px;
+  background: linear-gradient(125deg, #60351f, #a45e35);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::after {
+  content: "H";
+  position: absolute;
+  right: 35px;
+  top: -45px;
+  font-family: Georgia, serif;
+  font-size: 220px;
+  font-weight: bold;
+  color: rgba(255,255,255,0.07);
+}
+
+.eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #f2c6a8;
+  margin-bottom: 10px;
+}
+
+.hero h1 {
+  font-family: Georgia, serif;
+  font-size: clamp(32px, 5vw, 46px);
+  margin-bottom: 9px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero p {
+  color: #f4dfd1;
+  font-size: 14px;
+  max-width: 470px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-meta {
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-meta span {
+  font-size: 11px;
+  padding: 6px 11px;
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 30px;
+  color: #fff;
+}
+
+/* INTRO */
+
+.section-heading {
+  margin: 32px 0 13px;
+}
+
+.section-heading h2 {
+  font-size: 19px;
+  letter-spacing: -0.4px;
+}
+
+.section-heading p {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+/* LEARNING FLOW */
+
+.learning-flow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.flow-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 13px 10px;
+}
+
+.flow-number {
+  color: var(--primary);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.flow-item h3 {
+  font-size: 13px;
+  margin: 4px 0;
+}
+
+.flow-item p {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+/* TOPIC SECTIONS */
+
+.period {
+  margin-top: 31px;
+}
+
+.period-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 11px;
+}
+
+.period-header h2 {
+  font-family: Georgia, serif;
+  font-size: 21px;
+}
+
+.period-tag {
+  font-size: 10px;
+  color: var(--primary);
+  background: var(--primary-light);
+  padding: 5px 9px;
+  border-radius: 20px;
+  font-weight: 700;
+}
+
+.session-list {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.session {
+  display: grid;
+  grid-template-columns: 34px 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 13px 15px;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.2s;
+}
+
+.session:last-child {
+  border-bottom: none;
+}
+
+.session:hover {
+  background: #faf8f6;
+}
+
+.session-number {
+  width: 31px;
+  height: 31px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: var(--primary-light);
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.session-title {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.session-desc {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.session-action {
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--primary);
+  padding: 7px 11px;
+  border: 1px solid #ead7ca;
+  border-radius: 7px;
+  white-space: nowrap;
+}
+
+.session-action:hover {
+  background: var(--primary-light);
+}
+
+.upcoming .session-number {
+  background: #f0f1f4;
+  color: #8a91a0;
+}
+
+.upcoming .session-action {
+  color: #89909e;
+  border-color: var(--border);
+}
+
+/* BOTTOM STRIP */
+
+.revision-strip {
+  margin: 35px 0;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+}
+
+.revision-strip h3 {
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+
+.revision-strip p {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* FOOTER */
+
+footer {
+  text-align: center;
+  padding: 20px 0 30px;
+  color: var(--muted);
+  font-size: 11px;
+  border-top: 1px solid var(--border);
+}
+
+@media(max-width:600px) {
+  .hero {
+    padding: 25px 21px;
+  }
+
+  .hero::after {
+    right: 8px;
+    font-size: 160px;
+  }
+
+  .learning-flow {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .session {
+    grid-template-columns: 30px 1fr auto;
+    gap: 9px;
+    padding: 12px 10px;
+  }
+
+  .session-title {
+    font-size: 12px;
+  }
+
+  .session-desc {
+    font-size: 10px;
+  }
+
+  .session-action {
+    font-size: 10px;
+    padding: 6px 8px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="container nav-inner">
+    <div class="brand">Revise<span>2</span>Memorize</div>
+    <a class="back-link" href="../index.html">← Home</a>
+  </div>
+</nav>
+
+<main class="container">
+
+  <section class="hero">
+    <div class="eyebrow">BPSC Prelims Preparation</div>
+    <h1>History</h1>
+    <p>
+      Understand the past. Connect the facts. Remember what matters.
+      A structured journey through Ancient, Medieval and Modern Indian History.
+    </p>
+
+    <div class="hero-meta">
+      <span>Ancient History</span>
+      <span>Medieval History</span>
+      <span>Modern History</span>
+      <span>Bihar Special</span>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-heading">
+      <h2>How to study</h2>
+      <p>Every topic follows the same four-step learning cycle.</p>
+    </div>
+
+    <div class="learning-flow">
+      <div class="flow-item">
+        <div class="flow-number">01</div>
+        <h3>Learn</h3>
+        <p>Understand the topic through concise capsules.</p>
+      </div>
+
+      <div class="flow-item">
+        <div class="flow-number">02</div>
+        <h3>Memorise</h3>
+        <p>Recall important facts through active Q&A.</p>
+      </div>
+
+      <div class="flow-item">
+        <div class="flow-number">03</div>
+        <h3>Practice</h3>
+        <p>Test yourself with UPSC-level MCQs.</p>
+      </div>
+
+      <div class="flow-item">
+        <div class="flow-number">04</div>
+        <h3>Revise</h3>
+        <p>Revisit facts and strengthen retention.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANCIENT HISTORY -->
+
+  <section class="period">
+    <div class="period-header">
+      <h2>Ancient History</h2>
+      <span class="period-tag">START HERE</span>
+    </div>
+
+    <div class="session-list">
+
+      <div class="session">
+        <div class="session-number">01</div>
+        <div>
+          <div class="session-title">Jainism</div>
+          <div class="session-desc">Tirthankaras, teachings, councils, sects and Jainism in Bihar</div>
+        </div>
+        <a class="session-action"
+           href="jainism.html"
+           target="_top">Explore →</a>
+      </div>
+
+      <div class="session upcoming">
+        <div class="session-number">02</div>
+        <div>
+          <div class="session-title">Topic 2</div>
+          <div class="session-desc">Upcoming learning session</div>
+        </div>
+        <span class="session-action">Coming soon</span>
+      </div>
+
+      <div class="session upcoming">
+        <div class="session-number">03</div>
+        <div>
+          <div class="session-title">Topic 3</div>
+          <div class="session-desc">Upcoming learning session</div>
+        </div>
+        <span class="session-action">Coming soon</span>
+      </div>
+
+      <div class="session upcoming">
+        <div class="session-number">04</div>
+        <div>
+          <div class="session-title">Topic 4</div>
+          <div class="session-desc">Upcoming learning session</div>
+        </div>
+        <span class="session-action">Coming soon</span>
+      </div>
+
+      <div class="session upcoming">
+        <div class="session-number">05</div>
+        <div>
+          <div class="session-title">Topic 5</div>
+          <div class="session-desc">Upcoming learning session</div>
+        </div>
+        <span class="session-action">Coming soon</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MEDIEVAL HISTORY -->
+
+  <section class="period">
+    <div class="period-header">
+      <h2>Medieval History</h2>
+      <span class="period-tag">UPCOMING</span>
+    </div>
+
+    <div class="session-list">
+
+      <div class="session upcoming">
+        <div class="session-number">01</div>
+        <div>
+          <div class="session-title">Topic 1</div>
+          <div class="session-desc">Upcoming learning session</div>
+        </div>
+        <span class="session-action">Coming soon</span>
+      </div>
+
+      <div class="session upcoming">
+        <div class="session-number">02</div>
+        <div>
+          <div class="session-title">Topic 2</div>
+          <div class="session-desc">Upcoming learning session</div>
+        </div>
+        <span class="session-action">Coming soon</span>
+      </div>
+
+      <div class="session upcoming">
+        <div class="session-number">03</div>
+        <div>
+          <div class="session-title">Topic 3</div>
+          <div class="session-desc">Upcoming learning session</div>
+        </div>
+        <span class="session-action">Coming soon</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MODERN HISTORY -->
+
+  <section class="period">
+    <div class="period-header">
+      <h2>Modern History</h2>
+      <span class="period-tag">UPCOMING</span>
+    </div>
+
+    <div class="session-list">
+
+      <div class="session upcoming">
+        <div class="session-number">01</div>
+        <div>
+          <div class="session-title">Topic 1</div>
+          <div class="session-desc">Upcoming learning session</div>
+        </div>
+        <span class="session-action">Coming soon</span>
+      </div>
+
+      <div class="session upcoming">
+        <div class="session-number">02</div>
+        <div>
+          <div class="session-title">Topic 2</div>
+          <div class="session-desc">Upcoming learning session</div>
+        </div>
+        <span class="session-action">Coming soon</span>
+      </div>
+
+      <div class="session upcoming">
+        <div class="session-number">03</div>
+        <div>
+          <div class="session-title">Topic 3</div>
+          <div class="session-desc">Upcoming learning session</div>
+        </div>
+        <span class="session-action">Coming soon</span>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="revision-strip">
+    <h3>Consistency beats cramming.</h3>
+    <p>
+      Learn two topics. Solve 50 MCQs. Revise regularly.
+      Build your preparation one session at a time.
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  Revise2Memorize · BPSC Prelims Preparation
+</footer>
+
+</body>
+</html>
