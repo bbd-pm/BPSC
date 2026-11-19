@@ -1,0 +1,324 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geography | Revise2Memorize</title>
+
+<style>
+:root {
+    --bg: #0b1120;
+    --card: #151f32;
+    --border: #26344d;
+    --text: #e5edf8;
+    --muted: #91a1b8;
+    --accent: #38bdf8;
+    --accent-soft: rgba(56,189,248,0.12);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 24px 16px 50px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Inter, system-ui, -apple-system, sans-serif;
+}
+
+.container {
+    max-width: 760px;
+    margin: auto;
+}
+
+.back {
+    display: inline-block;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    margin-bottom: 25px;
+}
+
+.back:hover {
+    color: var(--accent);
+}
+
+.header {
+    margin-bottom: 28px;
+}
+
+.eyebrow {
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+h1 {
+    font-size: clamp(28px, 6vw, 38px);
+    margin: 8px 0;
+    letter-spacing: -1px;
+}
+
+.subtitle {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.progress {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 5px;
+    background: #26344d;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    width: 0%;
+    height: 100%;
+    background: var(--accent);
+}
+
+.section-title {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    margin: 30px 0 12px;
+}
+
+.topic-list {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.topic {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 13px 14px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--text);
+    transition: 0.2s ease;
+}
+
+.topic:hover {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    transform: translateX(3px);
+}
+
+.number {
+    min-width: 30px;
+    height: 30px;
+    display: grid;
+    place-items: center;
+    border-radius: 8px;
+    background: #202e44;
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.topic-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.topic-name {
+    font-size: 14px;
+    font-weight: 650;
+    line-height: 1.4;
+}
+
+.topic-desc {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 3px;
+    line-height: 1.4;
+}
+
+.arrow {
+    color: var(--muted);
+    font-size: 18px;
+}
+
+.upcoming {
+    opacity: 0.65;
+    cursor: default;
+}
+
+.upcoming:hover {
+    border-color: var(--border);
+    background: var(--card);
+    transform: none;
+}
+
+.tag {
+    font-size: 9px;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 4px 7px;
+    border-radius: 20px;
+    white-space: nowrap;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 38px;
+    color: #64748b;
+    font-size: 11px;
+}
+
+@media(max-width: 480px) {
+    body {
+        padding: 18px 13px 40px;
+    }
+
+    .topic {
+        padding: 12px 10px;
+        gap: 10px;
+    }
+
+    .topic-name {
+        font-size: 13px;
+    }
+
+    .topic-desc {
+        font-size: 10px;
+    }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+    <a class="back" href="../index.html">← Back to Home</a>
+
+    <header class="header">
+        <div class="eyebrow">Revise2Memorize · BPSC / UPSC</div>
+        <h1>Geography 🌍</h1>
+        <p class="subtitle">
+            Understand the processes that shape our planet.
+            Learn concepts, connect theories and revise through active recall.
+        </p>
+
+        <div class="progress">
+            <span>Learning journey</span>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            <span>2 / 8 topics</span>
+        </div>
+    </header>
+
+    <div class="section-title">Physical Geography · Earth's Dynamics</div>
+
+    <div class="topic-list">
+
+        <a class="topic" href="earth_internal_structure1.html">
+            <div class="number">01</div>
+            <div class="topic-content">
+                <div class="topic-name">Interior of the Earth – Part 1</div>
+                <div class="topic-desc">Internal structure · Layers · Continental Drift Theory</div>
+            </div>
+            <span class="arrow">›</span>
+        </a>
+
+        <a class="topic" href="earth_internal_structure2.html">
+            <div class="number">02</div>
+            <div class="topic-content">
+                <div class="topic-name">Interior of the Earth – Part 2</div>
+                <div class="topic-desc">Seafloor Spreading · Plate Tectonics · Earthquakes · Seismic Waves</div>
+            </div>
+            <span class="arrow">›</span>
+        </a>
+
+        <div class="section-title">More Topics · Coming Next</div>
+
+        <div class="topic upcoming">
+            <div class="number">03</div>
+            <div class="topic-content">
+                <div class="topic-name">Volcanism</div>
+                <div class="topic-desc">Types · Distribution · Volcanic Landforms</div>
+            </div>
+            <span class="tag">Coming soon</span>
+        </div>
+
+        <div class="topic upcoming">
+            <div class="number">04</div>
+            <div class="topic-content">
+                <div class="topic-name">Geomorphology</div>
+                <div class="topic-desc">Weathering · Erosion · Landform Development</div>
+            </div>
+            <span class="tag">Coming soon</span>
+        </div>
+
+        <div class="topic upcoming">
+            <div class="number">05</div>
+            <div class="topic-content">
+                <div class="topic-name">Climatology</div>
+                <div class="topic-desc">Atmosphere · Temperature · Pressure · Winds</div>
+            </div>
+            <span class="tag">Coming soon</span>
+        </div>
+
+        <div class="topic upcoming">
+            <div class="number">06</div>
+            <div class="topic-content">
+                <div class="topic-name">Oceanography</div>
+                <div class="topic-desc">Ocean Relief · Currents · Tides</div>
+            </div>
+            <span class="tag">Coming soon</span>
+        </div>
+
+        <div class="topic upcoming">
+            <div class="number">07</div>
+            <div class="topic-content">
+                <div class="topic-name">Indian Geography</div>
+                <div class="topic-desc">Physiography · Rivers · Climate · Resources</div>
+            </div>
+            <span class="tag">Coming soon</span>
+        </div>
+
+        <div class="topic upcoming">
+            <div class="number">08</div>
+            <div class="topic-content">
+                <div class="topic-name">World Geography</div>
+                <div class="topic-desc">Continents · Countries · Important Locations</div>
+            </div>
+            <span class="tag">Coming soon</span>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        Built for understanding. Designed for retention.
+        <br>Revise2Memorize © 2026
+    </div>
+
+</div>
+</body>
+</html>
+```
