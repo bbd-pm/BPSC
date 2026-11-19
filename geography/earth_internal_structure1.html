@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Earth's Interior | MCQ Practice</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--text:#1f2933;--muted:#66727f;--line:#dde2e8;--accent:#2f5d8a;--green:#1e8449;--gbg:#e6f4ec;--red:#c0392b;--rbg:#fbeaea}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Georgia,"Times New Roman",serif}
+.wrap{max-width:860px;margin:0 auto;padding:16px}
+h1{font-size:1.5rem;margin:8px 0 2px}
+.sub{color:var(--muted);margin:0 0 14px;font-family:system-ui,sans-serif;font-size:.9rem}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:14px;font-family:system-ui,sans-serif}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;text-align:center}
+.stat b{display:block;font-size:1.3rem}.stat span{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.bar{height:8px;background:var(--line);border-radius:4px;margin-top:12px;overflow:hidden}
+.bar div{height:100%;width:0;background:var(--accent);transition:width .2s}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+button{font:inherit;font-family:system-ui,sans-serif;font-size:.85rem;padding:8px 12px;border:1px solid var(--line);background:#fff;color:var(--text);border-radius:6px;cursor:pointer}
+button:hover{border-color:var(--accent);color:var(--accent)}
+button:disabled{opacity:.45;cursor:not-allowed}
+button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.jump{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.jump button{width:38px;height:36px;padding:0}
+.jump .c{background:var(--gbg);border-color:var(--green);color:var(--green)}
+.jump .w{background:var(--rbg);border-color:var(--red);color:var(--red)}
+.q{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px;margin-bottom:14px;scroll-margin-top:10px}
+.qn{font-family:system-ui,sans-serif;font-size:.78rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.06em}
+.qn span{font-weight:400;color:var(--muted);text-transform:none;letter-spacing:0}
+.qt{margin:4px 0 6px}
+.st{margin:0 0 10px;padding-left:22px}.st li{margin-bottom:4px}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;margin-top:8px;border:1px solid var(--line);border-radius:8px;cursor:pointer;font-family:system-ui,sans-serif;font-size:.95rem}
+.opt:hover{background:#f1f4f8}
+.opt.locked{cursor:default}.opt.locked:hover{background:inherit}
+.opt input{margin-top:4px}
+.opt.correct{background:var(--gbg);border-color:var(--green)}
+.opt.wrong{background:var(--rbg);border-color:var(--red)}
+.opt.locked.correct:hover{background:var(--gbg)}.opt.locked.wrong:hover{background:var(--rbg)}
+.fb{margin-top:12px;padding:12px;border-radius:8px;font-family:system-ui,sans-serif;font-size:.92rem}
+.fb.ok{background:var(--gbg);border-left:4px solid var(--green)}
+.fb.no{background:var(--rbg);border-left:4px solid var(--red)}
+.fb.rev{background:#eef2f7;border-left:4px solid var(--accent)}
+.fb strong{display:block;margin-bottom:4px}
+.res h2{margin:0 0 8px;font-size:1.2rem}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.chips button{background:var(--rbg);border-color:var(--red);color:var(--red)}
+.hidden{display:none}
+@media(max-width:560px){.stats{grid-template-columns:repeat(3,1fr)}.q{padding:14px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Earth's Interior</h1>
+  <p class="sub">UPSC Prelims MCQ Practice · Structure, Continental Drift, Seafloor Spreading, Plate Tectonics, Seismic Waves</p>
+
+  <div class="panel">
+    <div class="stats">
+      <div class="stat"><b id="sTotal">0</b><span>Total</span></div>
+      <div class="stat"><b id="sAtt">0</b><span>Attempted</span></div>
+      <div class="stat"><b id="sCor" style="color:var(--green)">0</b><span>Correct</span></div>
+      <div class="stat"><b id="sInc" style="color:var(--red)">0</b><span>Incorrect</span></div>
+      <div class="stat"><b id="sAcc">0%</b><span>Accuracy</span></div>
+    </div>
+    <div class="bar"><div id="bar"></div></div>
+  </div>
+
+  <div class="panel">
+    <div class="btns">
+      <button id="bShow">Show All Answers</button>
+      <button id="bHide">Hide All Answers</button>
+      <button id="bRetry" disabled>Retry Incorrect Questions</button>
+      <button id="bReview" disabled>Review Incorrect</button>
+      <button id="bAll" class="hidden">Show All Questions</button>
+      <button id="bReset">Reset Test</button>
+    </div>
+    <div style="margin-top:12px;font-size:.8rem;color:var(--muted)">Jump to question</div>
+    <div class="jump" id="jump"></div>
+  </div>
+
+  <div id="results" class="panel res hidden"></div>
+  <div id="list"></div>
+</div>
+
+<script>
+// ===== QUESTION BANK — replace this array for another topic =====
+// Fields: sec (optional index into SECTIONS), q (stem), s (optional statements/pairs), o (4 options), a (correct index 0-3 = A-D), e (explanation)
+const SECTIONS = [];
+const QUESTIONS = [
+{q:"Which one of the following statements best explains why the Earth's average density is significantly greater than the density of rocks commonly found at its surface?",
+ o:["The crust contains unusually dense minerals that raise the global average.","The Earth's interior contains denser materials, particularly iron-rich core material, and pressure increases with depth.","The mantle is entirely composed of liquid iron.","The atmosphere contributes substantially to the Earth's average density."],a:1,
+ e:"The Earth's mean density is about 5.5 g/cm³, much higher than typical crustal rocks. This reflects compositional differentiation, especially the dense metallic core, as well as compression under high pressure."},
+{q:"Consider the following pairs. Which of the pairs are correctly matched?",
+ s:["SIAL – predominantly silica and aluminium","SIMA – predominantly silica and magnesium","NIFE – predominantly nickel and iron"],
+ o:["1 and 2 only","2 and 3 only","1 and 3 only","1, 2 and 3"],a:3,
+ e:"These are traditional compositional terms: SIAL for much of the continental crust, SIMA for relatively magnesium-rich and iron-rich basaltic material, and NIFE for the metallic core. They are broad historical labels, not precise descriptions of every layer."},
+{q:"With reference to the asthenosphere, consider the following statements:",
+ s:["It is a mechanically weak zone within the upper mantle.","It is entirely molten and forms a global magma ocean.","Its ability to deform over geological time helps accommodate lithospheric plate motion."],
+ o:["1 and 3 only","2 only","1 and 2 only","1, 2 and 3"],a:0,
+ e:"The asthenosphere is predominantly solid but relatively weak and capable of ductile deformation over long timescales. Partial melting may occur locally, but it is not a continuous liquid layer."},
+{q:"The boundary between the crust and the mantle is identified primarily by:",
+ o:["A sharp increase in atmospheric pressure","A change in seismic-wave velocity and material properties","The disappearance of all P-waves","A transition from liquid to gaseous material"],a:1,
+ e:"The Mohorovičić discontinuity (Moho) marks the crust–mantle boundary and is identified by a notable increase in seismic-wave velocities, reflecting a change in composition and physical properties."},
+{q:"Which of the following is the most appropriate distinction between compositional and mechanical layers of the Earth?",
+ o:["Compositional layers are based on physical strength, while mechanical layers are based on chemical composition.","Both classifications use only seismic velocity.","Compositional layers distinguish crust, mantle and core; mechanical layers distinguish lithosphere, asthenosphere and deeper mechanically defined zones.","The two classifications are identical."],a:2,
+ e:"Compositional classification is based on chemistry (crust, mantle, core), whereas mechanical classification is based on physical behaviour (rigid lithosphere, weaker asthenosphere, and deeper regions)."},
+{q:"Wegener's Continental Drift Theory was initially criticised mainly because he:",
+ o:["Could not identify the existence of continents","Could not provide a convincing mechanism capable of moving continents","Denied the existence of fossils","Argued that the ocean floor was older than continents"],a:1,
+ e:"Wegener assembled important evidence for continental drift but proposed inadequate driving mechanisms, such as pole-fleeing force and tidal drag. Plate tectonics later supplied a more satisfactory framework."},
+{q:"Which of the following observations was used by Wegener as evidence for continental drift?",
+ s:["The jigsaw fit of continental margins","Similar fossils on now-separated continents","Continuity of geological structures across oceans","Matching glacial deposits and striations in southern continents"],
+ o:["1 and 2 only","2 and 3 only","1, 2 and 4 only","1, 2, 3 and 4"],a:3,
+ e:"Wegener drew on the fit of continental margins, fossil correlations such as Mesosaurus and Glossopteris, matching rock belts, and palaeoclimatic evidence including Permo-Carboniferous glaciation."},
+{q:"The presence of identical land-dwelling fossil species on continents now separated by wide oceans most strongly suggests that:",
+ o:["The organisms independently evolved identical forms on every continent","The continents were once connected or were connected by land bridges","The oceans did not exist at any point in geological history","Fossils can be transported only by ocean currents"],a:1,
+ e:"Matching fossils of organisms unlikely to cross vast oceans support former geographical connections. In the context of other geological evidence, continental unity is the stronger explanation."},
+{q:"Which statement about the fit of South America and Africa is most accurate?",
+ o:["Their present coastlines fit perfectly at every point.","The fit is more convincing when continental shelves and continental margins are considered rather than modern shorelines.","Their fit was first explained by seafloor spreading in the 18th century.","The fit alone conclusively proves the exact mechanism of continental movement."],a:1,
+ e:"Modern shorelines are modified by erosion, deposition and sea-level change. Reconstructing the continents using continental margins gives a better geometric fit, but the fit alone does not establish the mechanism."},
+{q:"Consider the following statements about palaeoclimatic evidence for continental drift:",
+ s:["Coal deposits in present-day high latitudes can indicate past warmer climates.","Glacial tillites and striations across now-separated southern continents support a former Gondwana connection.","Such evidence is useful because climate belts and continents have not changed through geological time."],
+ o:["1 and 2 only","2 and 3 only","1 and 3 only","1, 2 and 3"],a:0,
+ e:"Coal in regions now too cold for extensive coal-forming vegetation and widespread Gondwanan glacial traces indicate different past positions and climates. Statement 3 is incorrect because continental positions and climate belts have changed."},
+{q:"In the context of seafloor spreading, the youngest oceanic crust is generally found:",
+ o:["Near the continental margins","At or close to mid-oceanic ridges","In the centre of ocean basins far from ridges","Only beneath island arcs"],a:1,
+ e:"New oceanic lithosphere is created at divergent plate boundaries, especially mid-ocean ridges. It becomes progressively older away from the ridge as spreading continues."},
+{q:"The symmetrical pattern of magnetic stripes on either side of a mid-ocean ridge provides evidence for:",
+ o:["The absence of geomagnetic reversals","Repeated formation of oceanic crust and recording of Earth's magnetic polarity","The permanent immobility of the ocean floor","The conversion of oceanic crust into continental crust at the ridge"],a:1,
+ e:"Basalt formed at ridges records the prevailing magnetic polarity as it cools. Reversals produce alternating polarity bands that are broadly symmetrical on both sides of the ridge, supporting seafloor spreading."},
+{q:"Which one of the following best explains why oceanic crust is generally younger than continental crust?",
+ o:["Oceanic crust is never recycled.","Oceanic crust is continually created at ridges and recycled at subduction zones.","Continental crust is created only at mid-ocean ridges.","Oceanic crust is chemically incapable of weathering."],a:1,
+ e:"Oceanic lithosphere is generated at spreading centres and consumed at convergent boundaries. Some continental crust survives for billions of years, so very old continental rocks are more common."},
+{q:"Consider the following statements about transform faults associated with mid-ocean ridges:",
+ s:["They offset ridge segments.","Relative motion along them is predominantly horizontal.","They create large volumes of new oceanic crust along their entire length."],
+ o:["1 and 2 only","2 and 3 only","1 and 3 only","1, 2 and 3"],a:0,
+ e:"Transform faults accommodate horizontal relative motion between offset ridge segments. They do not generally create or destroy lithosphere along the transform boundary."},
+{q:"Which of the following is the most characteristic feature of a convergent boundary between an oceanic and a continental plate?",
+ o:["A mid-ocean ridge and symmetrical magnetic stripes","Subduction of the denser oceanic plate, commonly producing a trench and continental volcanic arc","Only horizontal displacement with no vertical movement","Creation of new oceanic crust without recycling"],a:1,
+ e:"Oceanic lithosphere is generally denser and descends beneath continental lithosphere. This can produce a trench, earthquakes along a dipping Benioff zone, and magma feeding a continental volcanic arc."},
+{q:"The Himalayas are primarily associated with which type of plate interaction?",
+ o:["Oceanic–oceanic divergence","Continental–continental convergence following closure of the Neo-Tethys Ocean","Continental–oceanic divergence","Transform movement between two oceanic plates"],a:1,
+ e:"The Indian Plate moved northward and collided with the Eurasian Plate after intervening oceanic lithosphere was consumed. The collision produced crustal shortening, folding, thrusting and uplift of the Himalayas."},
+{q:"Which one of the following statements about the lithosphere is correct?",
+ o:["It consists only of the crust.","It includes the crust and the rigid uppermost mantle.","It is synonymous with the asthenosphere.","It is a continuous liquid layer beneath the continents."],a:1,
+ e:"The lithosphere is the mechanically rigid outer shell of Earth, comprising the crust and uppermost mantle. It is divided into tectonic plates that move over weaker mantle beneath."},
+{q:"Why do P-waves travel through both solids and liquids, whereas S-waves do not travel through liquids?",
+ o:["P-waves are electromagnetic while S-waves are mechanical.","Liquids can resist compression but cannot sustain shear stress in the way required for S-wave propagation.","S-waves have lower frequency than P-waves.","P-waves travel only through the Earth's core."],a:1,
+ e:"P-waves are compressional waves and can propagate through materials that resist volume change, including liquids. S-waves require shear rigidity; liquids have effectively zero static shear modulus."},
+{q:"The P-wave shadow zone is primarily caused by:",
+ o:["Complete absorption of P-waves by the mantle","Strong refraction of P-waves at the core–mantle boundary as they enter the liquid outer core","The inability of P-waves to travel through liquids","The reflection of all P-waves at the Moho"],a:1,
+ e:"P-waves can pass through the liquid outer core, but their velocity changes sharply at the core–mantle boundary, causing strong refraction. This produces a shadow zone roughly between 103° and 142° from the epicentre."},
+{q:"A seismic station records P-waves but no direct S-waves from a distant earthquake. The most important inference is that:",
+ o:["The entire Earth is liquid","The S-waves must have encountered a liquid layer in the Earth's interior","The earthquake occurred in the atmosphere","The mantle is entirely molten"],a:1,
+ e:"The absence of direct S-waves beyond the relevant angular distance is evidence that the outer core is liquid. S-waves cannot propagate through this layer, whereas P-waves can."}
+];
+// ===== END QUESTION BANK =====
+
+const L = ["A","B","C","D"];
+let answers, revealed, filtered;
+const $ = id => document.getElementById(id);
+
+function init(){
+  answers = QUESTIONS.map(()=>null);
+  revealed = QUESTIONS.map(()=>false);
+  filtered = false;
+  render();
+}
+function isWrong(i){ return answers[i]!==null && answers[i]!==QUESTIONS[i].a; }
+
+function render(){
+  const list = $("list"); let html = "";
+  QUESTIONS.forEach((Q,i)=>{
+    const sel = answers[i], done = sel!==null, rev = revealed[i] && !done;
+    if(filtered && !isWrong(i)) return;
+    const secName = (Q.sec!==undefined && SECTIONS[Q.sec]) ? ` <span>· ${SECTIONS[Q.sec]}</span>` : "";
+    html += `<div class="q" id="q${i}"><div class="qn">Question ${i+1} of ${QUESTIONS.length}${secName}</div><p class="qt">${Q.q}</p>`;
+    if(Q.s) html += `<ol class="st">${Q.s.map(t=>`<li>${t}</li>`).join("")}</ol>`;
+    Q.o.forEach((t,j)=>{
+      let c = "opt";
+      if(done||rev){
+        if(done) c += " locked";
+        if(j===Q.a) c += " correct";
+        else if(done && j===sel) c += " wrong";
+      }
+      html += `<label class="${c}"><input type="radio" name="q${i}" value="${j}" data-q="${i}" ${done?"disabled":""} ${sel===j?"checked":""}><span><b>${L[j]}.</b> ${t}</span></label>`;
+    });
+    if(done){
+      const ok = sel===Q.a;
+      html += `<div class="fb ${ok?"ok":"no"}"><strong>${ok?"✓ Correct!":"✗ Incorrect — correct answer: "+L[Q.a]}</strong>${Q.e}</div>`;
+    } else if(rev){
+      html += `<div class="fb rev"><strong>Answer: ${L[Q.a]}</strong>${Q.e}</div>`;
+    }
+    html += `</div>`;
+  });
+  if(!html) html = `<div class="panel">No incorrect questions to show.</div>`;
+  list.innerHTML = html;
+  updateStats(); updateJump(); updateResults();
+}
+
+function updateStats(){
+  const total = QUESTIONS.length;
+  const att = answers.filter(a=>a!==null).length;
+  const cor = answers.filter((a,i)=>a!==null && a===QUESTIONS[i].a).length;
+  const inc = att-cor;
+  $("sTotal").textContent = total; $("sAtt").textContent = att;
+  $("sCor").textContent = cor; $("sInc").textContent = inc;
+  $("sAcc").textContent = (att? Math.round(cor/att*100):0)+"%";
+  $("bar").style.width = (att/total*100)+"%";
+  $("bRetry").disabled = inc===0;
+  $("bReview").disabled = inc===0;
+  $("bAll").classList.toggle("hidden", !filtered);
+}
+
+function updateJump(){
+  $("jump").innerHTML = QUESTIONS.map((Q,i)=>{
+    const a = answers[i];
+    const c = a===null ? "" : (a===Q.a ? "c" : "w");
+    return `<button class="${c}" data-j="${i}" title="Question ${i+1}">${i+1}</button>`;
+  }).join("");
+}
+
+function updateResults(){
+  const box = $("results");
+  const att = answers.filter(a=>a!==null).length;
+  if(att!==QUESTIONS.length){ box.classList.add("hidden"); box.innerHTML=""; return; }
+  const wrong = QUESTIONS.map((_,i)=>i).filter(isWrong);
+  const cor = QUESTIONS.length - wrong.length;
+  const acc = Math.round(cor/QUESTIONS.length*100);
+  box.classList.remove("hidden");
+  box.innerHTML = `<h2>Test Complete</h2>
+    <div><b>Score:</b> ${cor} / ${QUESTIONS.length} &nbsp; <b>Accuracy:</b> ${acc}%</div>
+    <div style="margin-top:8px"><b>Incorrect questions:</b> ${wrong.length? wrong.map(i=>i+1).join(", ") : "None — perfect score!"}</div>
+    ${wrong.length? `<div class="chips">${wrong.map(i=>`<button data-j="${i}">Q${i+1}</button>`).join("")}</div>
+    <div class="btns"><button class="primary" id="rReview">Review Incorrect Questions</button><button id="rRetry">Retry Incorrect Questions</button></div>` : ""}
+    <div class="btns" style="margin-top:8px"><button id="rReset">Reset Test</button></div>`;
+}
+
+function goTo(i){
+  if(filtered && !isWrong(i)){ filtered=false; render(); }
+  const el = $("q"+i);
+  if(el) el.scrollIntoView({behavior:"auto",block:"start"});
+}
+
+function reviewIncorrect(){
+  if(!answers.some((a,i)=>isWrong(i))) return;
+  filtered = true; render(); window.scrollTo(0,0);
+}
+function retryIncorrect(){
+  QUESTIONS.forEach((_,i)=>{ if(isWrong(i)){ answers[i]=null; revealed[i]=false; } });
+  filtered = false; render();
+  const first = answers.findIndex(a=>a===null);
+  if(first>=0) goTo(first);
+}
+
+// Event handling
+document.addEventListener("change", e=>{
+  const t = e.target;
+  if(t.matches('input[type=radio][data-q]')){
+    const i = +t.dataset.q;
+    if(answers[i]!==null) return;      // locked
+    answers[i] = +t.value;
+    revealed[i] = false;
+    render();
+  }
+});
+document.addEventListener("click", e=>{
+  const b = e.target.closest("button"); if(!b) return;
+  if(b.dataset.j!==undefined) return goTo(+b.dataset.j);
+  switch(b.id){
+    case "bShow": revealed = revealed.map(()=>true); render(); break;
+    case "bHide": revealed = revealed.map(()=>false); render(); break;
+    case "bReset": case "rReset": window.scrollTo(0,0); init(); break;
+    case "bRetry": case "rRetry": retryIncorrect(); break;
+    case "bReview": case "rReview": reviewIncorrect(); break;
+    case "bAll": filtered=false; render(); break;
+  }
+});
+init();
+</script>
+</body>
+</html>
